@@ -9,6 +9,13 @@ When it comes to object detection, popular frameworks are
  Support for running YOLO/DarkNet has been added to OpenCV dnn module recently. 
  
  ## YOLO (You Only Look Once)
+ 
  `$ python yolo_opencv.py --image dog.jpg --config yolov3.cfg --weights yolov3.weights --classes yolov3.txt`
  
- **SSD and Faster R-CNN examples will be added soon**
+ (Pre-trained YOLO v3 weights file is available [here](https://pjreddie.com/media/files/yolov3.weights).)
+ 
+ ### sample output :
+ ![](object-detection.jpg)
+ 
+ 
+ (**SSD and Faster R-CNN examples will be added soon**)
