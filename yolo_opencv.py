@@ -32,26 +32,32 @@ def get_output_layers(net):
 
 def draw_prediction(img, class_id, confidence, x, y, x_plus_w, y_plus_h):
 
-    cv2.rectangle(img, (x,y), (x_plus_w,y_plus_h), (0,255,0), 2)
-
     label = str(classes[class_id])
 
-    cv2.putText(img, label, (x-10,y-10), cv2.FONT_HERSHEY_SIMPLEX, 0.75, (0, 255, 0), 2)
+    color = COLORS[class_id]
+
+    cv2.rectangle(img, (x,y), (x_plus_w,y_plus_h), color, 2)
+
+    cv2.putText(img, label, (x-10,y-10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
 
 
+Width = 416
+Height = 416
 
-net = cv2.dnn.readNet(args.weights, args.config)
+image = cv2.imread(args.image)
+
+image = cv2.resize(image, (Width,Height))
 
 classes = None
 
 with open(args.classes, 'rt') as f:
     classes = f.read().rstrip('\n').split('\n')
 
-image = cv2.imread(args.image)
+COLORS = np.random.uniform(0, 255, size=(len(classes), 3))
 
-image = cv2.resize(image, (416,416))
+net = cv2.dnn.readNet(args.weights, args.config)
 
-blob = cv2.dnn.blobFromImage(image, 0.00392, (416,416), (0,0,0), True, crop=False)
+blob = cv2.dnn.blobFromImage(image, 0.00392, (Width,Height), (0,0,0), True, crop=False)
 
 net.setInput(blob)
 
@@ -60,8 +66,9 @@ outs = net.forward(get_output_layers(net))
 class_ids = []
 confidences = []
 boxes = []
-Width = 416
-Height = 416
+conf_threshold = 0.5
+nms_threshold = 0.4
+
 
 for out in outs:
     for detection in out:
@@ -80,7 +87,7 @@ for out in outs:
             boxes.append([x, y, w, h])
 
 
-indices = cv2.dnn.NMSBoxes(boxes, confidences, 0.5, 0.4)
+indices = cv2.dnn.NMSBoxes(boxes, confidences, conf_threshold, nms_threshold)
 
 for i in indices:
     i = i[0]
