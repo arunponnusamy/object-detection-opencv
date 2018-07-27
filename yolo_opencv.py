@@ -51,8 +51,8 @@ image = cv2.resize(image, (Width,Height))
 
 classes = None
 
-with open(args.classes, 'rt') as f:
-    classes = f.read().rstrip('\n').split('\n')
+with open(args.classes, 'r') as f:
+    classes = [line.strip() for line in f.readlines()]
 
 COLORS = np.random.uniform(0, 255, size=(len(classes), 3))
 
