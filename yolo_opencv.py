@@ -43,6 +43,7 @@ def draw_prediction(img, class_id, confidence, x, y, x_plus_w, y_plus_h):
 
 Width = 416
 Height = 416
+scale = 0.00392
 
 image = cv2.imread(args.image)
 
@@ -57,7 +58,7 @@ COLORS = np.random.uniform(0, 255, size=(len(classes), 3))
 
 net = cv2.dnn.readNet(args.weights, args.config)
 
-blob = cv2.dnn.blobFromImage(image, 0.00392, (Width,Height), (0,0,0), True, crop=False)
+blob = cv2.dnn.blobFromImage(image, scale, (Width,Height), (0,0,0), True, crop=False)
 
 net.setInput(blob)
 
