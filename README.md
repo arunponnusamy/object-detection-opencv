@@ -12,8 +12,8 @@ When it comes to object detection, popular detection frameworks are
   * opencv
   * numpy
   
-  OpenCV has to be compiled from source from the master branch. 
- 
+`pip install numpy opencv-python`
+
  ## YOLO (You Only Look Once)
  
  `$ python yolo_opencv.py --image dog.jpg --config yolov3.cfg --weights yolov3.weights --classes yolov3.txt`
