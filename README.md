@@ -25,7 +25,8 @@ When it comes to object detection, popular detection frameworks are
  
  `$ python yolo_opencv.py --image dog.jpg --config yolov3.cfg --weights yolov3.weights --classes yolov3.txt`
  
- Command format 
+ 
+ **Command format** 
  
  _$ python yolo_opencv.py --image /path/to/input/image --config /path/to/config/file --weights /path/to/weights/file --classes /path/to/classes/file_
  
