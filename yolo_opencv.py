@@ -8,7 +8,7 @@
 import cv2
 import argparse
 import numpy as np
-
+print('start')
 ap = argparse.ArgumentParser()
 ap.add_argument('-i', '--image', required=True,
                 help = 'path to input image')
