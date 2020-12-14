@@ -24,11 +24,11 @@ When it comes to object detection, popular detection frameworks are
  `$ wget https://pjreddie.com/media/files/yolov3.weights`
  
  Use soft links for weight files
- `ln -s ../weight/  ./`
+ `ln -s ../weight/yolov3.weights  ./yolov3.weights`
  
  Provided all the files are in the current directory, below command will apply object detection on the input image `dog.jpg`.
  
- `$ python yolo_opencv.py --image dog.jpg --config weigth/yolov3.cfg --weights weigth/yolov3.weights --classes coco.txt`
+ `$ python yolo_opencv.py --image dog.jpg --config config/yolov3.cfg --weights yolov3.weights --classes coco.txt`
  
  
  **Command format** 
@@ -44,3 +44,4 @@ Checkout the object detection implementation available in [cvlib](http:cvlib.net
  
  
  (_SSD and Faster R-CNN examples will be added soon_)
+
