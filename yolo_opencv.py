@@ -8,6 +8,7 @@
 import cv2
 import argparse
 import numpy as np
+import time
 
 ap = argparse.ArgumentParser()
 ap.add_argument('-i', '--image', required=True,
@@ -40,7 +41,7 @@ def draw_prediction(img, class_id, confidence, x, y, x_plus_w, y_plus_h):
 
     cv2.putText(img, label, (x-10,y-10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
 
-    
+tStart = time.time()
 image = cv2.imread(args.image)
 
 Width = image.shape[1]
@@ -95,10 +96,16 @@ for i in indices:
     y = box[1]
     w = box[2]
     h = box[3]
-    draw_prediction(image, class_ids[i], confidences[i], round(x), round(y), round(x+w), round(y+h))
+    draw_prediction(image, class_ids[i], confidences[i], int(round(x)), int(round(y)), int(round(x+w)), int(round(y+h)))
+    print("class_ids: {} confidences: {} ".format(class_ids[i], confidences[i]))
+    print(int(round(x)), int(round(y)), int(round(x+w)), int(round(y+h)))
 
-cv2.imshow("object detection", image)
-cv2.waitKey()
-    
-cv2.imwrite("object-detection.jpg", image)
-cv2.destroyAllWindows()
+tEnd = time.time()
+print("It cost {} sec".format(tEnd - tStart))
+
+#cv2.imshow("object detection", image)
+#cv2.waitKey()
+#    
+#cv2.imwrite("object-detection.jpg", image)
+#cv2.destroyAllWindows()
+
