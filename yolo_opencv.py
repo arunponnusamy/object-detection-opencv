@@ -2,6 +2,7 @@
 # Object detection - YOLO - OpenCV
 # Author : Arun Ponnusamy   (July 16, 2018)
 # Website : http://www.arunponnusamy.com
+# https://github.com/samsu2018/object-detection-opencv
 ############################################
 
 
@@ -53,6 +54,7 @@ def draw_prediction(img, class_id, confidence, x, y, x_plus_w, y_plus_h):
 
 
 def single(img):
+    tStart = time.time()
     image = cv2.imread(img)
     
     Width = image.shape[1]
@@ -92,7 +94,7 @@ def single(img):
     
     
     indices = cv2.dnn.NMSBoxes(boxes, confidences, conf_threshold, nms_threshold)
-    
+    results=[]
     for i in indices:
         i = i[0]
         box = boxes[i]
@@ -101,8 +103,12 @@ def single(img):
         w = box[2]
         h = box[3]
         draw_prediction(image, class_ids[i], confidences[i], int(round(x)), int(round(y)), int(round(x+w)), int(round(y+h)))
-        print("class_ids: {} confidences: {} ".format(class_ids[i], confidences[i]))
-        print(int(round(x)), int(round(y)), int(round(x+w)), int(round(y+h)))
+#        print("class_ids: {} confidences: {} ".format(class_ids[i], confidences[i]))
+#        print(int(round(x)), int(round(y)), int(round(x+w)), int(round(y+h)))
+        results.append([class_ids[i], round(confidences[i],4)])
+    tEnd = time.time()
+    print('objected:{}, {} sec'.format(results,tEnd - tStart))
+
 
 def multi(path):
     for f in glob.glob(os.path.join(path, "*.jpg")):
@@ -130,6 +136,6 @@ else:
     tStart = time.time()
     single(args.image)
     tEnd = time.time()
-    print("It cost {} sec".format(tEnd - tStart))
+#    print("It cost {} sec".format(tEnd - tStart))
 
 
