@@ -107,12 +107,11 @@ def single(img):
 #        print(int(round(x)), int(round(y)), int(round(x+w)), int(round(y+h)))
         results.append([class_ids[i], round(confidences[i],4)])
     tEnd = time.time()
-    print('objected:{}, {} sec'.format(results,tEnd - tStart))
+    print('{}, objected:{}, {} sec'.format(img, results,tEnd - tStart))
 
 
 def multi(path):
     for f in glob.glob(os.path.join(path, "*.jpg")):
-        print(f)
         single(f)
 
 #cv2.imshow("object detection", image)
@@ -126,11 +125,11 @@ def multi(path):
 # =============================================================================
 
 if args.type=='batch':
-    tStart = time.time()
+    ts = time.time()
     print('Enter batch model')
     multi(args.image)
-    tEnd = time.time()
-    print("It cost {} sec".format(tEnd - tStart))
+    te = time.time()
+    print("Total cost {} sec".format(ts - te))
 else:
     print('Enter single model')
     tStart = time.time()
