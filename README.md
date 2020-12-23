@@ -30,7 +30,7 @@ When it comes to object detection, popular detection frameworks are
  
  `$ python yolo_opencv.py --image dog.jpg --config config/yolov3.cfg --weights yolov3.weights --classes coco.txt`
  
- If you want to detect batch photos in the folder, you must add the parameter --t multi
+ If you want to detect batch photos in the folder, you must add the parameter --t batch
  `$ python yolo_opencv.py --t batch --image folder --config config/yolov3.cfg --weights yolov3.weights --classes coco.txt`
  
  **Command format** 
