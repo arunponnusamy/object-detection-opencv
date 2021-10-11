@@ -45,12 +45,10 @@ def get_output_layers(net):
 def draw_prediction(img, class_id, confidence, x, y, x_plus_w, y_plus_h):
 
     label = str(classes[class_id])
-
     color = COLORS[class_id]
-
     cv2.rectangle(img, (x,y), (x_plus_w,y_plus_h), color, 2)
-
     cv2.putText(img, label, (x-10,y-10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
+    cv2.imwrite("object-detection.jpg", img)
 
 
 def single(img):
@@ -103,7 +101,7 @@ def single(img):
         w = box[2]
         h = box[3]
         draw_prediction(image, class_ids[i], confidences[i], int(round(x)), int(round(y)), int(round(x+w)), int(round(y+h)))
-#        print("class_ids: {} confidences: {} ".format(class_ids[i], confidences[i]))
+        print("class_ids: {} confidences: {} ".format(class_ids[i], confidences[i]))
 #        print(int(round(x)), int(round(y)), int(round(x+w)), int(round(y+h)))
         results.append([class_ids[i], round(confidences[i],4)])
     tEnd = time.time()
@@ -117,7 +115,7 @@ def multi(path):
 #cv2.imshow("object detection", image)
 #cv2.waitKey()
 #    
-#cv2.imwrite("object-detection.jpg", image)
+# cv2.imwrite("object-detection.jpg", image)
 #cv2.destroyAllWindows()
 
 # =============================================================================
