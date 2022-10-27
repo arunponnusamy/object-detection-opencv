@@ -24,8 +24,10 @@ args = ap.parse_args()
 def get_output_layers(net):
     
     layer_names = net.getLayerNames()
-    
-    output_layers = [layer_names[i - 1] for i in net.getUnconnectedOutLayers()]
+    try:
+        output_layers = [layer_names[i - 1] for i in net.getUnconnectedOutLayers()]
+    except:
+        output_layers = [layer_names[i[0] - 1] for i in net.getUnconnectedOutLayers()]
 
     return output_layers
 
@@ -89,7 +91,12 @@ for out in outs:
 indices = cv2.dnn.NMSBoxes(boxes, confidences, conf_threshold, nms_threshold)
 
 for i in indices:
-    box = boxes[i]
+    try:
+        box = boxes[i]
+    except:
+        i = i[0]
+        box = boxes[i]
+    
     x = box[0]
     y = box[1]
     w = box[2]
